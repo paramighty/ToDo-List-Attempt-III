@@ -10,9 +10,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/todos", async (req, res) => {
+  const userEmail = "satta@test.com";
   try {
     const todos = await pool.query(
-      "SELECT * FROM todos"
+      "SELECT * FROM todos WHERE user_email = $1",
+      [userEmail]
     );
     res.json(todos.rows);
   } catch (error) {

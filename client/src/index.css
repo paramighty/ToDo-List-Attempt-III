@@ -33,4 +33,8 @@ body {
 }
 
 .list-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: black;
 }

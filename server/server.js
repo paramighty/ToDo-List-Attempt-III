@@ -1,6 +1,6 @@
 const PORT = process.env.PORT ?? 8000;
 const express = require("express");
-
+const pool = require("./db");
 
 const app = express(); //So, app has all the methods and properties now
 
@@ -10,7 +10,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/todos", async (req, res) => {
-  try { await
+  try {
+    const todos = await pool.query(
+      "SELECT * FROM todos"
+    );
+    res.json(todos.rows);
   } catch (error) {
     console.error(error);
   }

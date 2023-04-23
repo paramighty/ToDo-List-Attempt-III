@@ -14,8 +14,14 @@ app.get("/", (req, res) => {
 app.get(
   "/todos/:userEmail",
   async (req, res) => {
-    console.log(req);
-    const userEmail = req.params;
+    const userEmail =
+      req.params.userEmail;
+    //"give me the value of the 'userEmail' key from the params object inside the req object,
+    // and assign it to a constant variable named userEmail"
+    //Destructure it by doing { userEmail } = req.params when we have more params.
+
+    console.log(userEmail);
+
     try {
       const todos = await pool.query(
         "SELECT * FROM todos WHERE user_email = $1",

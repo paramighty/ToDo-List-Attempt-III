@@ -1,4 +1,5 @@
-/*This is just a list of things  put in postgres */
+/*This is just a list of things  put in postgres. Also, the database that I could connect is the postgres one unfortunately
+not the todoticks one */
 
 
 CREATE DATABASE todoticks;

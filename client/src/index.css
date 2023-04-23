@@ -19,5 +19,18 @@ body {
   margin-top: 50px;
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-container button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-size: 10px;
+  border-radius: 12px;
+  background-color: transparent;
+}
+
 .list-header {
 }

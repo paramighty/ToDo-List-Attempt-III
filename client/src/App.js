@@ -1,4 +1,5 @@
 import ListHeader from "./components/ListHeader";
+import Auth from "./components/Auth";
 import {
   useEffect,
   useState,
@@ -6,14 +7,15 @@ import {
 import ListItem from "./components/ListItem";
 
 const App = () => {
-  const userEmail = "satta@test.com"; //What is the difference of this being here as opposed to line 7
+  const userEmail = "satta@test.com";
   const [tasks, setTasks] =
     useState(null);
+  const authToken = false;
 
   const getData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/todos/${userEmail}`
+        `${process.env.REACT_APP_SERVERURL}/todos/${userEmail}`
       );
       const json =
         await response.json();
@@ -22,10 +24,14 @@ const App = () => {
       console.error(error);
     }
   };
-  useEffect(() => getData, []);
-  console.log(tasks);
 
-  //Sory by Date
+  useEffect(() => {
+    if (authToken) {
+      getData();
+    }
+  }, []);
+
+  console.log(tasks);
 
   const sortedTasks = tasks?.sort(
     (a, b) =>
@@ -35,15 +41,22 @@ const App = () => {
 
   return (
     <div className="app">
-      <ListHeader
-        listName={"Todo-Ticks"}
-      />
-      {sortedTasks?.map((task) => (
-        <ListItem
-          key={task.id}
-          task={task} //confusing.
-        />
-      ))}
+      {!authToken && <Auth />}
+      {authToken && (
+        <>
+          <ListHeader
+            listName={"Todo-Ticks"}
+            getData={getData}
+          />
+          {sortedTasks?.map((task) => (
+            <ListItem
+              key={task.id}
+              task={task}
+              getData={getData}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 };

@@ -93,6 +93,30 @@ app.delete(
   }
 );
 
+// signup
+
+app.post(
+  "/signup",
+  async (req, res) => {
+    const { email, password } =
+      req.body;
+    try {
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+//login
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(
     `Server running on port ${PORT}`

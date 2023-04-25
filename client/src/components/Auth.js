@@ -1,10 +1,9 @@
 import { useState } from "react";
 
+//useStates for login, email, password, confirm passwords, and error
 const Auth = () => {
   const [isLogin, setIsLogin] =
     useState(true);
-  const [error, setError] =
-    useState(null);
   const [email, setEmail] =
     useState(null);
   const [password, setPassword] =
@@ -13,6 +12,8 @@ const Auth = () => {
     confirmPassword,
     setConfirmPassword,
   ] = useState(null);
+  const [error, setError] =
+    useState(null);
 
   console.log(
     email,
@@ -35,7 +36,7 @@ const Auth = () => {
       password !== confirmPassword
     ) {
       setError(
-        "Make sure passwords Match!"
+        "Make sure your password matches doofus!"
       );
       return;
     }
@@ -44,7 +45,7 @@ const Auth = () => {
       `${process.env.REACT_APP_SERVERURL}/${endpoint}`,
       {
         method: "POST",
-        header: {
+        headers: {
           "Content-Type":
             "application/json",
         },
@@ -55,6 +56,16 @@ const Auth = () => {
       }
     );
     const data = await response.json();
+
+    if (data.detail) {
+      setError(data.detail);
+    } else {
+      setCookie("Email", data.email);
+      setCookie(
+        "AuthToken",
+        data.toekn
+      );
+    }
     console.log(data);
   };
   return (
@@ -69,7 +80,7 @@ const Auth = () => {
           <input
             type="email"
             placeholder="Type your Email your"
-            onClick={(e) =>
+            onChange={(e) =>
               setEmail(e.target.value)
             }
           />

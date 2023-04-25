@@ -5,12 +5,20 @@ import {
   useState,
 } from "react";
 import ListItem from "./components/ListItem";
+import { useCookies } from "react-cookie";
 
 const App = () => {
-  const userEmail = "satta@test.com";
+  const [
+    cookies,
+    setCookies,
+    removeCookies,
+  ] = useCookies(null);
+
+  const authToken = cookies.AuthToken;
+  const userEmail = cookies.Email;
+
   const [tasks, setTasks] =
     useState(null);
-  const authToken = false;
 
   const getData = async () => {
     try {

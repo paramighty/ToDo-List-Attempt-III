@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 //useStates for login, email, password, confirm passwords, and error
 const Auth = () => {
+  const [
+    cookies,
+    setCookies,
+    removeCookies,
+  ] = useCookies(null);
+
   const [isLogin, setIsLogin] =
     useState(true);
   const [email, setEmail] =
@@ -15,11 +22,7 @@ const Auth = () => {
   const [error, setError] =
     useState(null);
 
-  console.log(
-    email,
-    password,
-    confirmPassword
-  );
+  console.log(cookies);
 
   const viewLogin = (status) => {
     setError(null);
@@ -60,11 +63,13 @@ const Auth = () => {
     if (data.detail) {
       setError(data.detail);
     } else {
-      setCookie("Email", data.email);
-      setCookie(
+      setCookies("Email", data.Email);
+      setCookies(
         "AuthToken",
-        data.toekn
+        data.token
       );
+
+      window.location.reload();
     }
     console.log(data);
   };

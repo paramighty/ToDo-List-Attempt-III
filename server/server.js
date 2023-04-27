@@ -152,7 +152,7 @@ app.post("/login", async (req, res) => {
     const success =
       await bcrypt.compare(
         password,
-        users.rows[0].hashedPassword
+        users.rows[0].hashed_password
       );
     const token = jwt.sign(
       { email },

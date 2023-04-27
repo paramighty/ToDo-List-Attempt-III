@@ -56,6 +56,9 @@ const App = () => {
             listName={"Todo-Ticks"}
             getData={getData}
           />
+          <p>
+            Welcome back {userEmail}
+          </p>
           {sortedTasks?.map((task) => (
             <ListItem
               key={task.id}

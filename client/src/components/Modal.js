@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 
 const Modal = ({
   mode,
@@ -7,19 +6,14 @@ const Modal = ({
   getData,
   task,
 }) => {
-  const [
-    cookies,
-    setCookies,
-    removeCookies,
-  ] = useCookies(null);
-
-  const editMode =
-    mode === "edit" ? true : false;
+  let editMode;
+  if (mode === "edit") {
+    editMode = true;
+  } else {
+    editMode = false;
+  }
 
   const [data, setData] = useState({
-    user_email: editMode
-      ? task.user_email
-      : cookies.Email,
     title: editMode ? task.title : null,
     date: editMode
       ? task.date
